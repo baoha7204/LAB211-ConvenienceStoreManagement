@@ -2,17 +2,13 @@
 package action_service;
 
 import business_objects.Trade;
-import data_objects.DAOFactory;
-import data_objects.IDAOFactory;
-import utils.IValidation;
 import utils.Status;
 
 public class Menu {
-    static final IDAOFactory factory = new DAOFactory();
-    static final IValidation validator = factory.validator();
     static final Service service = new Service();
     public static void mainMenu(){
         int choice;
+        service.productDAO.loadFromFile();
         do{
             System.out.println("---MAIN MENU---\n" +
                                "1. Manage products\n" +
@@ -20,7 +16,7 @@ public class Menu {
                                "3. Report\n" +
                                "4. Store data to files\n" +
                                "5. Close the application");
-            choice = validator.checkInt("Input the choice:", 1, 5, Status.NORMAL);
+            choice = Service.validator.checkInt("Input the choice:", 1, 5, Status.NORMAL);
             switch(choice){
                 case 1:
                     subMenu_manageProducts();
@@ -32,7 +28,11 @@ public class Menu {
                     subMenu_report();
                     break;
                 case 4:
-                    // add function
+                    if(service.saveProductsToFile()){
+                        System.out.println("-----Successfully save the list product to product.dat!-----");
+                    } else{
+                        System.err.println("-----Fail to save the list product to product.dat!-----");
+                    }
             }
         } while(choice != 5);
     }
@@ -46,18 +46,18 @@ public class Menu {
                                "3. Delete product\n" +
                                "4. Show all product\n" +
                                "5. Back to main menu");
-            choice = validator.checkInt("Input the choice:", 1, 5, Status.NORMAL);
+            choice = Service.validator.checkInt("Input the choice:", 1, 5, Status.NORMAL);
             switch(choice){
                 case 1:
                     do{
                         service.addProduct();
-                    } while(validator.checkYesOrNo("Continue to add product (Y/N)?"));
+                    } while(Service.validator.checkYesOrNo("Continue to add product (Y/N)?"));
                     break;
                 case 2:
                     service.updateProduct();
                     break;
                 case 3:
-                    // add function
+                    service.deleteProduct();
                     break;
                 case 4:
                     service.showAllProduct();
@@ -72,7 +72,7 @@ public class Menu {
                                "1. Create an import receipt\n" +
                                "2. Create an export receipt\n" +
                                "3. Back to main menu");
-            choice = validator.checkInt("Input the choice:", 1, 3, Status.NORMAL);
+            choice = Service.validator.checkInt("Input the choice:", 1, 3, Status.NORMAL);
             switch(choice){
                 case 1:
                     service.addReceipt(Trade.IMPORT);
@@ -92,7 +92,7 @@ public class Menu {
                                "3. Products that are running out of stock (sorted in ascending order)\n" +
                                "4. Import/export receipt of a product\n" +
                                "5. Back to main menu");
-            choice = validator.checkInt("Input the choice:", 1, 5, Status.NORMAL);
+            choice = Service.validator.checkInt("Input the choice:", 1, 5, Status.NORMAL);
             switch(choice){
                 case 1:
                     service.showExpiredProducts();

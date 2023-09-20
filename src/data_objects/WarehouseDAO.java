@@ -40,4 +40,16 @@ public class WarehouseDAO implements IWarehouseDAO{
         }
         return tempList;
     } 
+
+    @Override
+    public boolean isProductExist(String productCode) {
+        for(Warehouse warehouse: warehouseList){
+            for(Product product: warehouse.getItems()){
+                if(product.getProductCode().equalsIgnoreCase(productCode)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

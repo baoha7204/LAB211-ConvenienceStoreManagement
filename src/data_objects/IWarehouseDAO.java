@@ -8,4 +8,5 @@ public interface IWarehouseDAO {
     boolean addReceipt(Warehouse receipt);
     int getSize();
     List<Warehouse> getReceiptList(String productCode);
+    boolean isProductExist(String productCode);
 }

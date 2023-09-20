@@ -104,7 +104,24 @@ public class Service implements IService {
 
     @Override
     public void deleteProduct() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String productCode = "";
+        while (true) {
+            productCode = validator.checkString("Input product code:", Status.NORMAL);
+            if (productDAO.isProductCodeExist(productCode)) {
+                break;
+            } else {
+                System.err.println("Product does not exist! Please enter again.");
+            }
+        }
+        if(validator.checkYesOrNo("Confirm delete (Y/N)?")){
+            Product deletedProduct = productDAO.getProduct(productCode);
+            if(!warehouseDAO.isProductExist(productCode)){
+                productDAO.deleteProduct(deletedProduct);
+                System.out.println("Successfully delete: " + deletedProduct);
+            } else{
+                System.err.println("Fail to delete: " + deletedProduct);
+            }
+        }
     }
 
     @Override
@@ -216,6 +233,17 @@ public class Service implements IService {
             }
             System.out.println(warehouse.toReportString()+ "," + "\n-----List of products-----\n" + listItems + "}");
         }
+    }
+
+    @Override
+    public boolean loadProductsFromFile() {
+        return productDAO.loadFromFile();
+    }
+
+    @Override
+    public boolean saveProductsToFile() {
+        System.out.println("...Saving the list product to file...");
+        return productDAO.saveToFile();
     }
 
 }

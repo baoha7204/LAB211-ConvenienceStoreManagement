@@ -14,4 +14,6 @@ public interface IProductDAO {
     List<Product> getExpiredProducts();
     List<Product> getSellingProducts();
     List<Product> getOutOfStockProducts();
+    boolean loadFromFile();
+    boolean saveToFile();
 }

@@ -17,4 +17,7 @@ public interface IService {
     void showSellingProducts();
     void showOutOfStockProducts();
     void showReceipt();
+    // File handling repository
+    boolean loadProductsFromFile();
+    boolean saveProductsToFile();
 }
