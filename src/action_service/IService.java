@@ -20,4 +20,6 @@ public interface IService {
     // File handling repository
     boolean loadProductsFromFile();
     boolean saveProductsToFile();
+    boolean loadWarehouseFromFile();
+    boolean saveWarehouseToFile();
 }

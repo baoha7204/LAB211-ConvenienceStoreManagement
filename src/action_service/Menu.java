@@ -8,7 +8,8 @@ public class Menu {
     static final Service service = new Service();
     public static void mainMenu(){
         int choice;
-        service.productDAO.loadFromFile();
+        service.loadProductsFromFile();
+        service.loadWarehouseFromFile();
         do{
             System.out.println("---MAIN MENU---\n" +
                                "1. Manage products\n" +
@@ -32,6 +33,11 @@ public class Menu {
                         System.out.println("-----Successfully save the list product to product.dat!-----");
                     } else{
                         System.err.println("-----Fail to save the list product to product.dat!-----");
+                    }
+                    if(service.saveProductsToFile()){
+                        System.out.println("-----Successfully save the list warehouse information to warehouse.dat!-----");
+                    } else{
+                        System.err.println("-----Fail to save the list warehouse information to warehouse.dat!-----");
                     }
             }
         } while(choice != 5);

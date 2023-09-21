@@ -51,7 +51,7 @@ public class Service implements IService {
         Date expirationDate = validator.checkAfterDate("Input expiration date (dd/MM/yyyy):", manufacturingDate, Status.NORMAL);
         Product addedProduct = new Product(productCode, productName, quantity, price, productType, manufacturingDate, expirationDate);
         if (productDAO.addProduct(addedProduct)) {
-            System.out.println("Successfully add product!");
+            System.out.println("Successfully add product: " + addedProduct);
         }
         return addedProduct;
     }
@@ -100,6 +100,7 @@ public class Service implements IService {
         if (updatedProduct.setExpirationDate(expirationDate)) {
             System.out.println("Successfully changed to: " + sdf.format(expirationDate));
         }
+        System.out.println("Successfully update product: " + updatedProduct);
     }
 
     @Override
@@ -244,6 +245,17 @@ public class Service implements IService {
     public boolean saveProductsToFile() {
         System.out.println("...Saving the list product to file...");
         return productDAO.saveToFile();
+    }
+
+    @Override
+    public boolean loadWarehouseFromFile() {
+        return warehouseDAO.loadFromFile();
+    }
+
+    @Override
+    public boolean saveWarehouseToFile() {
+        System.out.println("...Saving the list warehouse information to file...");
+        return warehouseDAO.saveToFile();
     }
 
 }

@@ -112,6 +112,9 @@ public class Validation implements IValidation {
     public Date checkAfterDate(String msg, Date productionDate, Status status) {
         while (true) {
             Date expiredDate = checkBeforeDate(msg, status);
+            if(status == Status.UPDATE && expiredDate == null){
+                return null;
+            }
             if (expiredDate.before(productionDate)) {
                 System.err.println("Expiration date must after production date! Please enter again.");
                 continue;

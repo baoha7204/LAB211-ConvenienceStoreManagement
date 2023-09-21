@@ -9,4 +9,6 @@ public interface IWarehouseDAO {
     int getSize();
     List<Warehouse> getReceiptList(String productCode);
     boolean isProductExist(String productCode);
+    boolean loadFromFile();
+    boolean saveToFile();
 }
