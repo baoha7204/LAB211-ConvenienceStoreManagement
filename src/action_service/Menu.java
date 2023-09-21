@@ -34,7 +34,7 @@ public class Menu {
                     } else{
                         System.err.println("-----Fail to save the list product to product.dat!-----");
                     }
-                    if(service.saveProductsToFile()){
+                    if(service.saveWarehouseToFile()){
                         System.out.println("-----Successfully save the list warehouse information to warehouse.dat!-----");
                     } else{
                         System.err.println("-----Fail to save the list warehouse information to warehouse.dat!-----");

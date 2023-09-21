@@ -1,11 +1,12 @@
 package business_objects;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
 
-public class Product {
+public class Product implements Serializable{
     private String productCode;
     private String name;
     private int quantity;

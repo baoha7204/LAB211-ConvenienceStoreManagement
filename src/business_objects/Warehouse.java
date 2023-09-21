@@ -1,13 +1,14 @@
 
 package business_objects;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Warehouse {
+public class Warehouse implements Serializable{
     private int code;
     private Trade tradeType;
     private Date timeStamp;

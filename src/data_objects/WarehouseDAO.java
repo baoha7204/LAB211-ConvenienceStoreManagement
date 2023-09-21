@@ -24,10 +24,6 @@ public class WarehouseDAO implements IWarehouseDAO{
         this.warehouseList = warehouseList;
     }
 
-    private void setWarehouseList(List<Warehouse> warehouseList) {
-        this.warehouseList = warehouseList;
-    }
-
     @Override
     public boolean addReceipt(Warehouse receipt) {
         return warehouseList.add(receipt);
@@ -70,12 +66,17 @@ public class WarehouseDAO implements IWarehouseDAO{
         try{
             FileInputStream readData = new FileInputStream(file);
             ObjectInputStream readStream = new ObjectInputStream(readData);
-            List<Warehouse> warehouseTempList = (ArrayList<Warehouse>) readStream.readObject();
-            setWarehouseList(warehouseTempList);
-            for(Warehouse warehouse: warehouseList){
-                System.out.println(warehouse);
+            boolean more = true;
+            while(more){
+                Warehouse warehouse = (Warehouse) readStream.readObject();
+                if(warehouse != null){
+                    warehouseList.add(warehouse);
+                } else{
+                    more = false;
+                }
             }
             readStream.close();
+            readData.close();
         }catch (IOException | ClassNotFoundException e) {
             return false;
         }
@@ -88,10 +89,12 @@ public class WarehouseDAO implements IWarehouseDAO{
         try{
             FileOutputStream writeData = new FileOutputStream(file);
             ObjectOutputStream writeStream = new ObjectOutputStream(writeData);
-            writeStream.writeObject(warehouseList);
+            for(Warehouse warehouse: warehouseList){
+                writeStream.writeObject(warehouse);
+            }
             writeStream.flush();
             writeStream.close();
-
+            writeData.close();
         }catch (IOException e) {
             return false;
         }
