@@ -70,9 +70,10 @@ public class Service implements IService {
             }
         }
         Product updatedProduct = productDAO.getProduct(productCode);
-
+        boolean isNameChanged, isPriceChanged, isTypeChanged, isManuDateChanged, isExpDateChanged;
         String productName = validator.checkString("Input product name:", Status.UPDATE);
-        if (updatedProduct.setName(productName)) {
+        isNameChanged = updatedProduct.setName(productName);
+        if (isNameChanged) {
             System.out.println("Successfully changed to: " + productName);
         }
 
@@ -82,23 +83,45 @@ public class Service implements IService {
         }
 
         double price = validator.checkDouble("Input price:", 0, Double.MAX_VALUE, Status.UPDATE);
-        if (updatedProduct.setPrice(price)) {
+        isPriceChanged = updatedProduct.setPrice(price);
+        if (isPriceChanged) {
             System.out.println("Successfully changed to: " + price);
         }
 
         ProductType productType = validator.checkProductType("Input product type (DAILY/LONG):", Status.UPDATE);
-        if (updatedProduct.setType(productType)) {
+        isTypeChanged = updatedProduct.setType(productType);
+        if (isTypeChanged) {
             System.out.println("Successfully changed to: " + productType);
         }
 
         Date manufacturingDate = validator.checkBeforeDate("Input manufacturing date (dd/MM/yyyy):", Status.UPDATE);
-        if (updatedProduct.setManufacturingDate(manufacturingDate)) {
+        isManuDateChanged = updatedProduct.setManufacturingDate(manufacturingDate);
+        if (isManuDateChanged) {
             System.out.println("Successfully changed to: " + sdf.format(manufacturingDate));
         }
 
         Date expirationDate = validator.checkAfterDate("Input expiration date (dd/MM/yyyy):", updatedProduct.getManufacturingDate(), Status.UPDATE);
-        if (updatedProduct.setExpirationDate(expirationDate)) {
+        isExpDateChanged = updatedProduct.setExpirationDate(expirationDate);
+        if (isExpDateChanged) {
             System.out.println("Successfully changed to: " + sdf.format(expirationDate));
+        }
+        // adjust the corresponding information of import/export receipts
+        for(Product product: warehouseDAO.getProductList(productCode)){
+            if(isNameChanged){
+                product.setName(productName);
+            }
+            if(isPriceChanged){
+                product.setPrice(price);
+            }
+            if(isTypeChanged){
+                product.setType(productType);
+            }
+            if(isManuDateChanged){
+                product.setManufacturingDate(manufacturingDate);
+            }
+            if(isExpDateChanged){
+                product.setExpirationDate(expirationDate);
+            }
         }
         System.out.println("Successfully update product: " + updatedProduct);
     }

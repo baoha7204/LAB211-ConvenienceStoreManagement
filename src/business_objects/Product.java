@@ -120,12 +120,12 @@ public class Product implements Serializable{
     public String toString() {
         String pattern = "dd/MM/yyyy";
         DateFormat sdf = new SimpleDateFormat(pattern);
-        return "Product{" + "productCode=" + productCode + ", name=" + name + ", quantity=" + quantity + ", price=" + price + ", type=" + type + ", manufacturingDate=" + sdf.format(manufacturingDate) + ", expirationDate=" + sdf.format(expirationDate) + "}";
+        return "{" + "productCode=" + productCode + ", name=" + name + ", quantity=" + quantity + ", price=" + price + ", type=" + type + ", manufacturingDate=" + sdf.format(manufacturingDate) + ", expirationDate=" + sdf.format(expirationDate) + "}";
     }
     
     public String toReportString() {
         String pattern = "dd/MM/yyyy";
         DateFormat sdf = new SimpleDateFormat(pattern);
-        return "Product{" + "productCode=" + productCode + ", name=" + name + ", quantity=" + quantity + ", price=" + price + ", manufacturingDate=" + sdf.format(manufacturingDate) + ", expirationDate=" + sdf.format(expirationDate) + "}";
+        return "{" + "productCode=" + productCode + ", name=" + name + ", quantity=" + quantity + ", price=" + price + ", manufacturingDate=" + sdf.format(manufacturingDate) + ", expirationDate=" + sdf.format(expirationDate) + "}";
     }
 }

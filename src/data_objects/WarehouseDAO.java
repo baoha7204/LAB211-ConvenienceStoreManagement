@@ -13,15 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WarehouseDAO implements IWarehouseDAO{
-    private final String WAREHOUSE_FILEPATH = "..\\..\\warehouse.dat";
+    private final String WAREHOUSE_FILEPATH = "warehouse.dat";
     private List<Warehouse> warehouseList;
 
     public WarehouseDAO() {
         warehouseList = new ArrayList<>();
-    }
-
-    public WarehouseDAO(List<Warehouse> warehouseList) {
-        this.warehouseList = warehouseList;
     }
 
     @Override
@@ -99,5 +95,19 @@ public class WarehouseDAO implements IWarehouseDAO{
             return false;
         }
         return true;
+    }
+
+    @Override
+    public List<Product> getProductList(String productCode) {
+        List<Product> tempList = new ArrayList<>();
+        for(Warehouse warehouse: warehouseList){
+            for(Product product: warehouse.getItems()){
+                if(product.getProductCode().equalsIgnoreCase(productCode)){
+                    tempList.add(product);
+                    break;
+                }
+            }
+        }
+        return tempList;
     }
 }

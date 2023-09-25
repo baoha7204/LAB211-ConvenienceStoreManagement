@@ -69,12 +69,12 @@ public class Warehouse implements Serializable{
         for(Product product: items){
             listItems += product.toString() + "\n";
         }
-        return "Warehouse{" + "code=" + code + ", tradeType=" + tradeType + ", timeStamp=" + sdf.format(timeStamp) + "," + "\n-----List of products-----\n" + listItems + "}";
+        return "{" + "code=" + code + ", tradeType=" + tradeType + ", timeStamp=" + sdf.format(timeStamp) + "," + "\n-----List of products-----\n" + listItems + "}";
     }
     
     public String toReportString() {
         String pattern = "dd/MM/yyyy HH:mm:ss a";
         DateFormat sdf = new SimpleDateFormat(pattern);
-        return "Warehouse{" + "code=" + code + ", tradeType=" + tradeType + ", timeStamp=" + sdf.format(timeStamp);
+        return "{" + "code=" + code + ", tradeType=" + tradeType + ", timeStamp=" + sdf.format(timeStamp);
     }
 }

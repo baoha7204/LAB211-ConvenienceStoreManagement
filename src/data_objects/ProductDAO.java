@@ -18,15 +18,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ProductDAO implements IProductDAO {
-    private final String PRODUCT_FILEPATH = "..\\..\\product.dat";
+    private final String PRODUCT_FILEPATH = "product.dat";
     private List<Product> productList;
 
     public ProductDAO() {
         productList = new ArrayList<>();
-    }
-
-    public ProductDAO(List<Product> productList) {
-        this.productList = productList;
     }
 
     @Override
@@ -139,7 +135,7 @@ public class ProductDAO implements IProductDAO {
 
     @Override
     public boolean saveToFile() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         try {
             PrintWriter printWriter = new PrintWriter(PRODUCT_FILEPATH);
             for(Product product: productList) {
