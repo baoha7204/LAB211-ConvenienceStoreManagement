@@ -71,9 +71,8 @@ public class ProductDAO implements IProductDAO {
     @Override
     public List<Product> getSellingProducts() {
         List<Product> sellingProducts = new ArrayList<>();
-        Date now = new Date();
         for(Product product: productList){
-            if(product.getQuantity() > 0 && now.before(product.getExpirationDate())){
+            if(product.getQuantity() > 0){
                 sellingProducts.add(product);
             }
         }
